@@ -1,0 +1,206 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-09-14 09:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "account_section",
+  "api_key",
+  "column_break_account",
+  "website_id",
+  "widget_section",
+  "enabled",
+  "widget_id",
+  "column_break_widget",
+  "widget_script_url",
+  "knowledge_section",
+  "sync_enabled",
+  "sync_web_pages",
+  "sync_blog_posts",
+  "column_break_knowledge",
+  "last_sync",
+  "synced_count",
+  "leads_section",
+  "lead_capture_enabled",
+  "lead_doctype",
+  "column_break_leads",
+  "webhook_id",
+  "webhook_secret",
+  "advanced_section",
+  "api_url"
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-09-14 09:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Asyntai",
+ "name": "Asyntai Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 0,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "fields": [
+  {
+   "fieldname": "account_section",
+   "fieldtype": "Section Break",
+   "label": "Asyntai Account"
+  },
+  {
+   "description": "Copy it from the Asyntai dashboard: Settings, then API.",
+   "fieldname": "api_key",
+   "fieldtype": "Password",
+   "label": "API Key"
+  },
+  {
+   "fieldname": "column_break_account",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Leave empty to use the primary website on the account.",
+   "fieldname": "website_id",
+   "fieldtype": "Data",
+   "label": "Asyntai Website ID"
+  },
+  {
+   "fieldname": "widget_section",
+   "fieldtype": "Section Break",
+   "label": "Chat Widget"
+  },
+  {
+   "default": "0",
+   "description": "Show the chat widget on every page of this site.",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Show Chat Widget"
+  },
+  {
+   "depends_on": "enabled",
+   "description": "Looks like asyntai_ab12cd34ef56. Copy it from the Install page in Asyntai.",
+   "fieldname": "widget_id",
+   "fieldtype": "Data",
+   "label": "Widget ID",
+   "mandatory_depends_on": "enabled"
+  },
+  {
+   "fieldname": "column_break_widget",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "https://asyntai.com/static/js/chat-widget.js",
+   "depends_on": "enabled",
+   "fieldname": "widget_script_url",
+   "fieldtype": "Data",
+   "label": "Widget Script URL"
+  },
+  {
+   "fieldname": "knowledge_section",
+   "fieldtype": "Section Break",
+   "label": "Knowledge Base"
+  },
+  {
+   "default": "0",
+   "description": "Send Web Pages and Blog Posts to Asyntai, so the chatbot answers from them.",
+   "fieldname": "sync_enabled",
+   "fieldtype": "Check",
+   "label": "Sync Content To Asyntai"
+  },
+  {
+   "default": "1",
+   "depends_on": "sync_enabled",
+   "fieldname": "sync_web_pages",
+   "fieldtype": "Check",
+   "label": "Web Pages"
+  },
+  {
+   "default": "1",
+   "depends_on": "sync_enabled",
+   "fieldname": "sync_blog_posts",
+   "fieldtype": "Check",
+   "label": "Blog Posts"
+  },
+  {
+   "fieldname": "column_break_knowledge",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_sync",
+   "fieldtype": "Datetime",
+   "label": "Last Sync",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "synced_count",
+   "fieldtype": "Int",
+   "label": "Pages In Asyntai",
+   "read_only": 1
+  },
+  {
+   "fieldname": "leads_section",
+   "fieldtype": "Section Break",
+   "label": "Lead Capture"
+  },
+  {
+   "default": "0",
+   "description": "When a visitor leaves an email address or a phone number in the chat, create the record here.",
+   "fieldname": "lead_capture_enabled",
+   "fieldtype": "Check",
+   "label": "Create Records From Chat Leads",
+   "read_only": 1
+  },
+  {
+   "default": "Lead",
+   "description": "Lead needs ERPNext or Frappe CRM. Contact works on every site.",
+   "fieldname": "lead_doctype",
+   "fieldtype": "Select",
+   "label": "Create",
+   "options": "Lead\nContact"
+  },
+  {
+   "fieldname": "column_break_leads",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "webhook_id",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Webhook ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "webhook_secret",
+   "fieldtype": "Password",
+   "hidden": 1,
+   "label": "Webhook Secret"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "advanced_section",
+   "fieldtype": "Section Break",
+   "label": "Advanced"
+  },
+  {
+   "default": "https://asyntai.com",
+   "description": "Change this only if Asyntai support asks you to.",
+   "fieldname": "api_url",
+   "fieldtype": "Data",
+   "label": "Asyntai API URL"
+  }
+ ]
+}

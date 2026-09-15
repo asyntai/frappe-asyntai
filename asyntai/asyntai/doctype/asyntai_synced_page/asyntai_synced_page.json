@@ -1,0 +1,97 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-09-14 09:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "reference_doctype",
+  "reference_name",
+  "column_break_ref",
+  "reference_link",
+  "context_id",
+  "content_hash",
+  "title",
+  "synced_at"
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-09-14 09:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Asyntai",
+ "name": "Asyntai Synced Page",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "fields": [
+  {
+   "description": "Plain data, not a link: a link would stop the customer deleting their own page.",
+   "fieldname": "reference_doctype",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Reference Document Type",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "reference_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Reference Name",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ref",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reference_link",
+   "fieldtype": "HTML",
+   "label": "Open The Page",
+   "options": "<div class=\"asyntai-ref-link text-muted\"></div>"
+  },
+  {
+   "fieldname": "context_id",
+   "fieldtype": "Data",
+   "label": "Asyntai Content ID",
+   "read_only": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "content_hash",
+   "fieldtype": "Data",
+   "label": "Content Hash",
+   "read_only": 1
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "read_only": 1
+  },
+  {
+   "fieldname": "synced_at",
+   "fieldtype": "Datetime",
+   "label": "Synced At",
+   "read_only": 1
+  }
+ ]
+}
