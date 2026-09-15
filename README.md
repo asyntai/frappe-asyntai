@@ -43,7 +43,7 @@ Full guide: [asyntai.com/documentation/integrations/frappe/](https://asyntai.com
 
 ## Requirements
 
-- Frappe v15 or later
+- Frappe v15, with or without ERPNext
 - An Asyntai account on the Starter plan or higher, because the app uses the
   Asyntai API
 
