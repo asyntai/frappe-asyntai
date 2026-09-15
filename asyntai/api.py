@@ -3,9 +3,11 @@
 
 """Endpoints the desk and Asyntai call."""
 
+import datetime
 import hashlib
 import hmac
 import json
+import zoneinfo
 
 import frappe
 from frappe import _
@@ -183,19 +185,22 @@ def create_lead(payload, settings=None):
 			return existing
 
 		lead = frappe.new_doc("Lead")
-		lead.lead_name = email or phone
+		# The name the chatbot has is the email address. Use the part before
+		# the "@", so the Lead reads as a person in the list. Never put the
+		# website domain in company_name: the site is yours, not the visitor's
+		# employer, and a wrong organisation is worse than an empty one.
 		lead.first_name = email.split("@")[0] if email else phone
-		lead.company_name = payload.get("website_domain") or ""
+		lead.lead_name = lead.first_name
 		if email:
 			lead.email_id = email
 		if phone:
 			lead.mobile_no = phone
-		# Lead Source is master data. A fresh ERPNext site has none of it, and
-		# a name that is not there stops the insert, so only set what exists.
-		for source in ("Website", "Campaign", "Existing Customer"):
-			if frappe.db.exists("Lead Source", source):
-				lead.source = source
-				break
+		# Lead Source is master data, and a name that is not there stops the
+		# insert. Only "Website" describes a chat lead, so set that when the
+		# site has it and leave the field empty when it does not. A wrong
+		# source sends the sales team down the wrong path.
+		if frappe.db.exists("Lead Source", "Website"):
+			lead.source = "Website"
 		lead.flags.ignore_mandatory = True
 		lead.flags.ignore_links = True
 		lead.insert(ignore_permissions=True)
@@ -236,9 +241,30 @@ def _build_notes(payload):
 		("Started", "started_at"),
 	):
 		value = payload.get(key)
-		if value:
-			lines.append(f"{label}: {value}")
+		if not value:
+			continue
+		if key == "started_at":
+			value = _readable_time(value) or value
+		lines.append(f"{label}: {value}")
 	return "<br>".join(frappe.utils.escape_html(line) for line in lines)
+
+
+def _readable_time(value):
+	"""Turn the API timestamp into the date format the site itself uses.
+
+	The raw value carries microseconds and a UTC offset. That belongs in a log,
+	not on a record a salesperson reads.
+	"""
+	try:
+		text = str(value).replace("Z", "+00:00")
+		moment = datetime.datetime.fromisoformat(text)
+		if moment.tzinfo is not None:
+			moment = moment.astimezone(
+				zoneinfo.ZoneInfo(frappe.utils.get_system_timezone())
+			).replace(tzinfo=None)
+		return frappe.utils.format_datetime(moment, "medium")
+	except Exception:
+		return None
 
 
 def _add_comment(doctype, name, notes):
